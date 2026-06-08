@@ -1,31 +1,48 @@
-# react-sleep-detector 😴🚨
+# 😴 React Sleep Detector
 
-A plug-and-play React component that uses computer vision (`face-api.js`) to detect if a user has fallen asleep in front of their webcam. If their eyes remain closed for a specified threshold, it triggers a loud web audio siren and displays a customizable "WAKE UP" popup.
+An advanced, AI-powered React component that leverages computer vision and facial landmark detection (`face-api.js`) to monitor user focus in real-time. It calculates the Eye Aspect Ratio (EAR) to detect drowsiness and instantly triggers customizable audio-visual alerts.
 
-Perfect for Ed-Tech platforms, productivity tools, and focus monitoring apps.
+Perfect for Ed-Tech platforms, productivity tools, e-learning environments, and driver-monitoring dashboards.
 
-## Features
-- **Real-time Eye Aspect Ratio (EAR) calculation** using `face-api.js`
-- **Built-in Audio Context Siren** to wake the user up
-- **Customizable thresholds** for eye closeness and sleep duration
-- **Fully customizable UI** (Override the default popup or pass your own styles)
-- **Zero-config setup** available
+---
 
-## Installation
+## 🚀 Features
+
+- **Real-Time Monitoring**: Uses a lightweight AI model directly in the browser.
+- **Privacy First**: All facial detection happens locally on the user's device. No video is ever recorded or sent to a server.
+- **Audio-Visual Alerts**: Built-in siren using the Web Audio API and a customizable "Wake Up" modal.
+- **Highly Customizable**: Override default thresholds, popup styles, and behaviors with simple props.
+- **Zero-Config Option**: Works out-of-the-box with sensible defaults.
+
+---
+
+## 📦 Installation
+
+Installing the package is a simple two-step process to ensure all peer dependencies and AI models are correctly set up.
+
+### Step 1: Install the NPM Package
+Run the following command in your terminal to install the package and its required dependencies:
 
 ```bash
-npm install react-sleep-detector
+npm install react-sleep-detector react react-dom @vladmandic/face-api lucide-react
 ```
 
-> **Note**: You must also install the peer dependencies if you haven't already:
-> `npm install react react-dom @vladmandic/face-api lucide-react`
+### Step 2: Setup the AI Models (Crucial Step)
+Because this package runs Machine Learning models in the browser, it needs access to the pre-trained weights. 
 
-## Model Files Required
-Since this package relies on `face-api.js`, you need to serve the neural network models from your public directory.
-1. Download the `tiny_face_detector` and `face_landmark_68` model weights from the [face-api.js weights repository](https://github.com/justadudewhohacks/face-api.js/tree/master/weights).
-2. Place them in your project's `public/models` directory.
+1. Create a folder named `models` inside your project's `public` directory (e.g., `public/models`).
+2. Download the following required model files from the [face-api.js weights repository](https://github.com/justadudewhohacks/face-api.js/tree/master/weights):
+   - `tiny_face_detector_model-weights_manifest.json`
+   - `tiny_face_detector_model-shard1`
+   - `face_landmark_68_model-weights_manifest.json`
+   - `face_landmark_68_model-shard1`
+3. Place all 4 downloaded files inside your newly created `public/models` directory.
 
-## Basic Usage
+---
+
+## 💻 Usage
+
+Import the component and render it anywhere in your app. It runs invisibly in the background.
 
 ```jsx
 import React from 'react';
@@ -34,9 +51,9 @@ import { SleepDetector } from 'react-sleep-detector';
 function App() {
   return (
     <div>
-      <h1>My Study App</h1>
+      <h1>My Learning Dashboard</h1>
       
-      {/* Renders invisibly in the background and monitors user */}
+      {/* Renders invisibly and monitors the user */}
       <SleepDetector 
         isActive={true} 
         modelsUrl="/models" 
@@ -49,38 +66,39 @@ function App() {
 export default App;
 ```
 
-## Advanced Customization
+---
 
-You can control exactly how the detector behaves:
+## ⚙️ Configuration / Props
+
+You have complete control over how the sleep detector behaves. Here are the props you can pass:
+
+| Prop Name | Type | Default | Description |
+|-----------|------|---------|-------------|
+| `isActive` | `boolean` | `true` | Turns the webcam and monitoring on or off. |
+| `modelsUrl` | `string` | `'/models'` | The path to your public models folder. |
+| `sleepThresholdMs` | `number` | `3000` | How long the eyes must be closed (in ms) before the alarm triggers. |
+| `earThreshold` | `number` | `0.28` | The Eye Aspect Ratio below which eyes are considered "closed". |
+| `alarmTimeoutMs` | `number` | `10000` | How long the alarm sounds before auto-dismissing (in ms). |
+| `onSleepDetected` | `function`| `null` | Optional callback triggered exactly when the user falls asleep. |
+
+### Example: Fully Custom UI
+
+If you want to use your own custom popup instead of the default one:
 
 ```jsx
 <SleepDetector 
   isActive={true}
   modelsUrl="/models"
-  sleepThresholdMs={4000} // Wait 4 seconds before triggering alarm (Default: 3000)
-  earThreshold={0.25} // Sensitivity of eye closure (Default: 0.28)
-  alarmTimeoutMs={15000} // Auto-dismiss alarm after 15s (Default: 10000)
-  onSleepDetected={() => console.log("User fell asleep!")} // Callback function
-  customStyles={{
-    overlay: { backgroundColor: 'rgba(255,0,0,0.5)' },
-    title: { fontSize: '2rem' }
-  }}
-/>
-```
-
-### Complete Custom UI
-If you don't like the default popup, you can render your own:
-
-```jsx
-<SleepDetector 
   customAlarmPopup={({ onDismiss }) => (
-    <div className="my-custom-alarm">
-      <h2>Hey! Wake up!</h2>
-      <button onClick={onDismiss}>I'm awake!</button>
+    <div style={{ background: 'red', padding: '20px', color: 'white' }}>
+      <h2>Hey! Wake up and focus!</h2>
+      <button onClick={onDismiss}>I am Awake!</button>
     </div>
   )}
 />
 ```
 
-## Credits
-Created by Developer Ashish.
+---
+
+## 👨‍💻 Credits
+Created by **Ashish**.
