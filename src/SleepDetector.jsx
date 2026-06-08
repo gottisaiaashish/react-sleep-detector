@@ -22,6 +22,7 @@ const SleepDetector = ({
   const audioCtxRef = useRef(null);
   const sirenIntervalRef = useRef(null);
   const popupTimeoutRef = useRef(null);
+  const detectionIntervalRef = useRef(null);
 
   // Load models on mount
   useEffect(() => {
@@ -57,6 +58,10 @@ const SleepDetector = ({
     };
 
     const stopCamera = () => {
+      if (detectionIntervalRef.current) {
+        clearInterval(detectionIntervalRef.current);
+        detectionIntervalRef.current = null;
+      }
       if (stream) {
         stream.getTracks().forEach(track => track.stop());
       }
@@ -127,9 +132,10 @@ const SleepDetector = ({
   };
 
   const handleVideoPlay = () => {
-    const loop = setInterval(async () => {
-      if (!videoRef.current || !isCameraActive || !isActive) {
-        clearInterval(loop);
+    if (detectionIntervalRef.current) clearInterval(detectionIntervalRef.current);
+    
+    detectionIntervalRef.current = setInterval(async () => {
+      if (!videoRef.current || videoRef.current.paused || videoRef.current.ended) {
         return;
       }
 
