@@ -1,7 +1,7 @@
 {
   "name": "react-sleep-detector",
   "version": "1.0.0",
-  "description": "A React component to detect user sleep using face-api.js and trigger an alarm.",
+  "description": "An advanced, AI-powered React component that leverages computer vision and facial landmark detection (face-api.js) to monitor user focus in real-time, calculating Eye Aspect Ratio (EAR) to detect drowsiness and instantly trigger customizable audio-visual alerts.",
   "main": "dist/react-sleep-detector.umd.js",
   "module": "dist/react-sleep-detector.es.js",
   "exports": {
@@ -35,6 +35,6 @@
     "alarm",
     "webcam"
   ],
-  "author": "Seek Team",
+  "author": "Developer Ashish",
   "license": "MIT"
 }

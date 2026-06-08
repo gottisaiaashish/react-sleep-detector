@@ -83,4 +83,4 @@ If you don't like the default popup, you can render your own:
 ```
 
 ## Credits
-Created by the Seek Team.
+Created by Developer Ashish.
