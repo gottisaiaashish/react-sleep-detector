@@ -1,0 +1,40 @@
+{
+  "name": "react-sleep-detector",
+  "version": "1.0.0",
+  "description": "A React component to detect user sleep using face-api.js and trigger an alarm.",
+  "main": "dist/react-sleep-detector.umd.js",
+  "module": "dist/react-sleep-detector.es.js",
+  "exports": {
+    ".": {
+      "import": "./dist/react-sleep-detector.es.js",
+      "require": "./dist/react-sleep-detector.umd.js"
+    }
+  },
+  "scripts": {
+    "build": "vite build",
+    "prepublishOnly": "npm run build"
+  },
+  "peerDependencies": {
+    "react": "^16.8.0 || ^17.0.0 || ^18.0.0",
+    "react-dom": "^16.8.0 || ^17.0.0 || ^18.0.0"
+  },
+  "dependencies": {
+    "@vladmandic/face-api": "^1.7.12",
+    "lucide-react": "^0.263.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^4.0.0",
+    "vite": "^4.4.5"
+  },
+  "keywords": [
+    "react",
+    "sleep",
+    "detector",
+    "face-api",
+    "focus",
+    "alarm",
+    "webcam"
+  ],
+  "author": "Seek Team",
+  "license": "MIT"
+}
